@@ -1,0 +1,196 @@
+{% extends 'main/base.html' %}
+
+{% load social_share %}
+
+{% block title %} {{ object.title }} {% endblock %}
+
+{% block content %}
+  <article class="media">
+
+      <div class="media-body">
+
+        <div class="meta">
+
+          {% if object.author.is_superuser %}
+            <a style="font-size: 20px; font-weight: bold;" class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+            </svg></a>
+
+          {% else %}
+              <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+
+          {% endif %}
+
+          <small class="text-muted">{{ object.date_posted|date:"F j, Y" }} • {{ object.views }} 
+
+            {% if object.views > 1 %}
+              views
+            {% else %}
+              view
+            {% endif %}
+            
+            {% if not user.is_authenticated %}
+             • {{ object.total_agrees }} agreed / {{ object.total_disagrees }} disagreed
+            {% endif %}
+            
+          </small>
+        </div>
+
+        <h2>
+          {{ object.title }}
+        </h2>
+
+        {% if user.is_authenticated %}
+          <div class="mb-5">
+
+            <button class="agree-btn mr-5" data-id="{{ object.id }}" style="outline: none;">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-up-square-fill" viewBox="0 0 16 16">
+                <path d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2zm6.5-4.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 1 0"/>
+              </svg>
+
+              <small class="text-muted" id="agree-count-{{ object.id }}">{{ object.total_agrees }}</small>
+
+            </button>
+
+            <button class="disagree-btn" data-id="{{ object.id }}" style="outline: none;">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-down-square-fill" viewBox="0 0 16 16">
+                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5a.5.5 0 0 1 1 0"/>
+              </svg>
+
+              <small class="text-muted" id="disagree-count-{{ object.id }}">{{ object.total_disagrees }}</small>
+              
+            </button>
+
+          </div>
+        {% endif %}
+
+        <p>
+          {% autoescape off %} {{ object.content }} {% endautoescape %}
+        </p>
+
+        {% if object.author == user %}
+          <div>
+            <a class="text-primary mr-2" style="text-transform: uppercase;" href="{% url 'post-update' object.id %}">UPDATE</a>
+            <a class="text-danger" style="text-transform: uppercase;" href="{% url 'post-delete' object.id %}">DELETE</a>
+          </div>
+        {% endif %}
+
+        <div class="mt-5 share">
+          {% post_to_whatsapp object_or_url '<i class="fa-brands fa-whatsapp mr-3"></i>' %}
+          {% post_to_facebook object_or_url '<i class="fa-brands fa-facebook mr-3"></i>' %}
+        </div>
+
+        <hr>
+
+        <section id="comments-section" class="mt-5">
+          <h3>comments ({{ object.comments.count }})</h3>
+      
+          <ul id="comments-list" style="list-style: none;">
+            {% for comment in object.comments.all %}
+              <li>
+                <a style="font-size: 16px; font-weight: bold; color: rgb(170, 166, 166);" class="mr-2" href="{% url 'user-posts' comment.author.username %}">{{ comment.author }}</a>
+                <small class="text-muted">{{ comment.date_posted|date:"M d, Y, H:i" }}</small>
+                <p>{{ comment.content }}</p>
+              </li>
+            {% empty %}
+              <p>no comments yet.</p>
+            {% endfor %}
+          </ul>
+      
+          {% if user.is_authenticated %}
+            <form id="add-comment-form" class="mt-3">
+              {% csrf_token %}
+              <textarea id="comment-content" name="content" class="form-control" rows="3"></textarea>
+              <button class="text-dark mt-2" style="cursor: pointer; border: none; background: none; outline: none;" type="submit">POST</button>
+            </form>
+          {% endif %}
+        </section>
+
+      </div>
+
+  </article>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const commentForm = document.getElementById("add-comment-form");
+      const commentsList = document.getElementById("comments-list");
+      const commentContent = document.getElementById("comment-content");
+      const commentCountElement = document.querySelector("#comments-section h3");
+
+      document.querySelectorAll(".agree-btn").forEach(button => {
+        button.addEventListener("click", function() {
+          const postId = this.dataset.id;
+          fetch(`/post/${postId}/agree/`, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+          })
+          .then(response => response.json())
+            .then(data => {
+              document.getElementById(`agree-count-${postId}`).textContent = data.agrees;
+              document.getElementById(`disagree-count-${postId}`).textContent = data.disagrees;
+            });
+        });
+      });
+
+      document.querySelectorAll(".disagree-btn").forEach(button => {
+        button.addEventListener("click", function() {
+          const postId = this.dataset.id;
+          fetch(`/post/${postId}/disagree/`, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+          })
+          .then(response => response.json())
+            .then(data => {
+              document.getElementById(`agree-count-${postId}`).textContent = data.agrees;
+              document.getElementById(`disagree-count-${postId}`).textContent = data.disagrees;
+            });
+        });
+      });
+
+      if (commentForm) {
+        commentForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const content = commentContent.value.trim();
+        if (!content) return;
+
+        fetch("{% url 'post-comment' object.id %}", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ content: content }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              alert(data.error);
+            } else {
+              const newComment = document.createElement("li");
+              newComment.innerHTML = `
+                <a style="font-size: 16px; font-weight: bold; color: rgb(170, 166, 166);" class="mr-2">${data.author}</a>
+                <small class="text-muted">${data.date_posted}</small>
+                <p>${data.content}</p>
+              `;
+              commentsList.appendChild(newComment);
+              commentContent.value = "";
+
+              const currentCount = parseInt(commentCountElement.textContent.match(/\d+/)[0]);
+              commentCountElement.textContent = `comments (${currentCount + 1})`;
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+    }
+  });
+  </script>
+
+
+{% endblock %}
