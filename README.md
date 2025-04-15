@@ -12,6 +12,8 @@ Categorized posts for structured exploration
 
 Search and filter capabilities
 
+Agree/disagree posts or comment
+
 Clean and responsive design
 
 Admin Panel
