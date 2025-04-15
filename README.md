@@ -14,11 +14,13 @@ Search and filter capabilities
 
 Clean and responsive design
 
+Admin Panel
+
 * Tech Stack
 
 Backend: Django
 
-Frontend: HTML5, CSS3, JavaScript (custom or templating via Django)
+Frontend: HTML5, CSS3, JavaScript
 
 Database: SQLite/PostgreSQL
 
