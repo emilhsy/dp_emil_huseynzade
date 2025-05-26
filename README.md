@@ -27,7 +27,3 @@ Frontend: HTML5, CSS3, JavaScript
 Database: SQLite/PostgreSQL
 
 Deployment: Heroku
-
-* Live Demo
-
-Check out the live version here: https://sourdict-6da54861dd27.herokuapp.com
