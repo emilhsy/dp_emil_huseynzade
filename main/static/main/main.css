@@ -1,26 +1,128 @@
+/* GENERAL */
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    font-family: "Playfair Display", serif;
+    font-family: "Jost", sans-serif;
 }
 
-a {
-    color: #000814;
+html {
+    font-size: 14px;
+}
+
+body {
+    padding-top: 8vh;
+    background-color: dodgerblue;
 }
 
 a:hover {
     text-decoration: none;
-    color: purple;
+    color: white;
 }
 
-/* Navbar */
+button {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* COMMONS */
+.section {
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+/* POSTS */
+article a {
+    color: black;
+}
+
+article a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* POST DETAILS */
+.agree-btn,
+.disagree-btn {
+    font-size: 1.5rem;
+    color: dodgerblue;
+}
+
+.share {
+    font-size: 2rem;
+}
+
+.paginator a {
+    background: white;
+    color: black;
+    padding: 0 1rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+/* Search form design  */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 10px 20px;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: background-color 0.5s;
+}
+
+.search-input:focus {
+    background-color: white;
+}
+
+.search-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.5s;
+}
+
+.search-button:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Delete account */
+.delete-account {
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* NAVBAR */
 nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
     min-height: 8vh;
-    background-color: #000814;
+    background-color: white;
     position: fixed;
     top: 0;
     left: 0;
@@ -28,14 +130,8 @@ nav {
     z-index: 1000;
 }
 
-body {
-    margin: 0;
-    padding-top: 8vh;
-}
 
 .logo {
-    color: rgb(226, 226, 226);
-    text-transform: uppercase;
     letter-spacing: 5px;
 }
 
@@ -51,23 +147,20 @@ body {
 }
 
 .nav-links a {
-    color: rgb(226, 226, 226);
+    color: black;
     text-decoration: none;
-    letter-spacing: 3px;
-    font-size: 14px;
 }
 
 .burger {
     display: none;
-    cursor: pointer;
 }
 
 .burger div {
     width: 25px;
     height: 3px;
-    background-color: rgb(226, 226, 226);
+    background-color: black;
     margin: 5px;
-    transition: all 0.3s ease
+    transition: all 0.3s ease;
 }
 
 @media screen and (max-width: 1300px) {
@@ -86,7 +179,7 @@ body {
         right: 0px;
         height: 92vh;
         top: 8vh;
-        background-color: #000814;
+        background-color: white;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -131,88 +224,4 @@ body {
 
 .toggle .line3 {
     transform: rotate(45deg) translate(-5px, -6px);
-}
-
-/* Posts */
-article {
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    text-transform: lowercase;
-}
-
-.meta {
-    padding-bottom: 1px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3;
-}
-
-.agree-btn,
-.disagree-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 30px;
-}
-
-.agree-btn:hover,
-.disagree-btn:hover {
-    color: purple;
-}
-
-.share {
-    font-size: 30px;
-    display: flex;
-    justify-content: left;
-}
-
-.paginator {
-    font-size: 30px;
-    text-transform: lowercase;
-    display: flex;
-    justify-content: space-around;
-}
-
-/* Search form design  */
-.search-form {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.search-input {
-    flex-grow: 1;
-    padding: 10px 14px;
-    border: 1px solid #000;
-    border-radius: 4px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.search-input:focus {
-    border-color: #333;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.search-button {
-    background-color: #000;
-    color: #fff;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.search-button:hover {
-    background-color: #333;
-}
-
-.search-button:active {
-    transform: scale(0.95);
-}
-
-.search-button i {
-    font-size: 16px;
 }

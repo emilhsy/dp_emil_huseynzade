@@ -5,7 +5,7 @@
 {% block title %} {{ object.title }} {% endblock %}
 
 {% block content %}
-  <article class="media">
+  <article class="media section rounded border border-dark">
 
       <div class="media-body">
 
@@ -77,7 +77,7 @@
           </div>
         {% endif %}
 
-        <div class="mt-5 share">
+        <div class="mt-5 d-flex share">
           {% post_to_whatsapp object_or_url '<i class="fa-brands fa-whatsapp mr-3"></i>' %}
           {% post_to_facebook object_or_url '<i class="fa-brands fa-facebook mr-3"></i>' %}
         </div>

@@ -1,19 +1,19 @@
 {% extends 'main/base.html' %}
 
-{% block title %} delete the writing "{{ object.title }}" {% endblock %}
+{% block title %} Delete writing {% endblock %}
 
 {% block content %}
-    <div style="text-transform: lowercase;">
+    <div class="section rounded border border-dark">
         <form method="POST">
-            {% csrf_token %}
+            {% csrf_token %} {# CSRF protection #}
 
             <fieldset class="form-group">
-                <h2>are you sure you want to delete the writing <p style="font-style: italic; display: inline-block; font-weight: bold;">{{ object.title }}</p> ?</h2>
+                <h2>Are you sure you want to delete the writing <b>"{{ object.title }}"</b> ?</h2>
             </fieldset>
 
             <div class="form-group">
-                <button class="text-danger mr-2" style="cursor: pointer; border: none; background: none; outline: none;" type="submit">YES, DELETE</button>
-                <a class="text-secondary" style="text-transform: uppercase;" href="{% url 'post-detail' object.id %}">CANCEL</a>            
+                <button class="btn btn-danger" type="submit">Yes, Delete</button>
+                <a class="btn btn-dark" href="{% url 'post-detail' object.id %}">Cancel</a>            
             </div>
         </form>
     </div>

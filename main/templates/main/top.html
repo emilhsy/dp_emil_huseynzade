@@ -1,10 +1,10 @@
 {% extends 'main/base.html' %}
 
-{% block title %} top writings {% endblock %}
+{% block title %} sourdict - Sacred Source of Knowledge {% endblock %}
 
 {% block content %}
 
-  <p style="text-align: center;">top writings / <a href="{% url 'main-home' %}" style="font-weight: bold;">latest writings</a></p>
+  <p>Most Viewed / <a href="{% url 'main-home' %}" class="text-white">Latest</a></p>
 
   <form action="{% url 'top-posts' %}" class="search-form">
     <input
@@ -12,7 +12,8 @@
         name="q"
         aria-label="Search"
         value="{{ request.GET.q }}"
-        class="search-input"
+        class="search-input rounded border border-dark"
+        placeholder="Search..."
     >
     <button type="submit" class="search-button">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -24,7 +25,7 @@
   {% if posts %}
     {% for post in posts %}
 
-      <article class="media">
+      <article class="media section">
 
           <div class="media-body">
 
@@ -55,7 +56,7 @@
     {% endfor %}
 
   {% else %}
-    <p>no posts found matching your search criteria.</p>
+    <p class="text-white">No posts found matching your search criteria.</p>
   {% endif %}
 
   <div class="mt-5 mb-5 paginator">

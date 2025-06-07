@@ -1,13 +1,15 @@
 {% extends 'main/base.html' %}
 
-{% block title %} logged out {% endblock %}
+{% block title %} Logged out {% endblock %}
 
 {% block content %}
-    <h2>you have been logged out</h2>
+    <div class="section rounded border border-dark">
+        <h2>You have been logged out.</h2>
 
-    <div class="border-top">
-        <small class="text-muted">
-            <a href="{% url 'login' %}">log in again</a>
-        </small>
+        <div class="border-top">
+            <small class="text-muted">
+                <a class="text-primary" href="{% url 'login' %}">Login Again</a>
+            </small>
+        </div>
     </div>
 {% endblock %}

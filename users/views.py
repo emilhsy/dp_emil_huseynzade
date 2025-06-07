@@ -4,9 +4,9 @@ from .forms import UserRegisterForm, UserUpdateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 def register(request):
 
+    # Handles user registration
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
 
@@ -23,7 +23,8 @@ def register(request):
 
 @login_required
 def profile(request):
-
+    
+    # Handles user profile update
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
 
@@ -45,6 +46,7 @@ def profile(request):
 @login_required
 def delete_account(request):
 
+    # Handles account deletion
     if request.method == 'POST':
         user = request.user
         user.delete()

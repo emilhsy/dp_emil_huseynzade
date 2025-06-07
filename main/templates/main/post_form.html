@@ -2,20 +2,20 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} write {% endblock %}
+{% block title %} Write {% endblock %}
 
 {% block content %}
-    <div style="text-transform: lowercase;">
+    <div class="section rounded border border-dark">
         <form method="POST">
-            {% csrf_token %}
+            {% csrf_token %} {# CSRF protection #}
 
             <fieldset class="form-group">
-                {{ form.media }}
-                {{ form|crispy }}
+                {{ form.media }} {# Includes any required media (e.g. JS for ckeditor) #}
+                {{ form|crispy }} {# Renders the form using crispy-forms for styling #}
             </fieldset>
 
             <div class="form-group">
-                <button class="text-primary" style="cursor: pointer; border: none; background: none; outline: none;" type="submit">POST</button>
+                <button class="btn btn-primary" type="submit">Post</button>
             </div>
         </form>
     </div>

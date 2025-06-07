@@ -1,14 +1,13 @@
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
-
 from .models import Post, Comment
 from django.contrib.auth.models import User
 
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 
-# Create your views here.
+# View for displaying recent posts (home page)
 class PostListView(ListView):
     model = Post
     template_name = 'main/home.html'
@@ -24,6 +23,7 @@ class PostListView(ListView):
         
         return super().get_queryset()
 
+# View for displaying top viewed posts
 class TopListView(ListView):
     model = Post
     template_name = 'main/top.html'
@@ -39,6 +39,7 @@ class TopListView(ListView):
         
         return super().get_queryset()
 
+# View for listing posts by a specific user
 class UserPostListView(ListView):
     model = Post
     template_name = 'main/user_posts.html'
@@ -55,6 +56,7 @@ class UserPostListView(ListView):
 
         return queryset
 
+# Detail view that increments view count
 class PostDetailView(DetailView):
     model = Post
 
@@ -64,7 +66,7 @@ class PostDetailView(DetailView):
         post.save()
         return post
 
-
+# Authenticated post creation view
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
@@ -73,6 +75,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+# Authenticated + ownership-checked post update view
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
@@ -89,6 +92,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         
         return False
     
+# Authenticated + ownership-checked post deletion view
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/'
@@ -101,7 +105,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         
         return False
     
-
+# Toggle agree on a post via AJAX
 @login_required
 def PostAgreeView(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -115,6 +119,7 @@ def PostAgreeView(request, pk):
 
     return JsonResponse({'agrees': post.total_agrees(), 'disagrees': post.total_disagrees()})
 
+# Toggle disagree on a post via AJAX
 @login_required
 def PostDisagreeView(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -128,6 +133,7 @@ def PostDisagreeView(request, pk):
         
     return JsonResponse({'agrees': post.total_agrees(), 'disagrees': post.total_disagrees()})
 
+# Submit comment via AJAX
 @login_required
 def PostCommentView(request, pk):
 

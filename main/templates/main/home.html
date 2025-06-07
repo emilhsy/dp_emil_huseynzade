@@ -1,10 +1,10 @@
 {% extends 'main/base.html' %}
 
-{% block title %} sourdict - sacred source of knowledge {% endblock %}
+{% block title %} sourdict - Sacred Source of Knowledge {% endblock %}
 
 {% block content %}
 
-  <p style="text-align: center;">latest writings / <a href="{% url 'top-posts' %}" style="font-weight: bold;">top writings</a></p>
+  <p>Latest / <a href="{% url 'top-posts' %}" class="text-white">Most Viewed</a></p>
 
   <form action="{% url 'main-home' %}" class="search-form">
     <input
@@ -12,7 +12,8 @@
         name="q"
         aria-label="Search"
         value="{{ request.GET.q }}"
-        class="search-input"
+        class="search-input rounded border border-dark"
+        placeholder="Search..."
     >
     <button type="submit" class="search-button">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -24,11 +25,11 @@
   {% if posts %}
     {% for post in posts %}
 
-      <article class="media">
+      <article class="media section rounded border border-dark">
 
           <div class="media-body">
 
-            <div class="meta">
+            <div>
 
               {% if post.author.is_superuser %}
                 <a style="font-size: 20px; font-weight: bold;" class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
@@ -62,7 +63,7 @@
     {% endfor %}
   {% else %}
 
-    <p>no posts found matching your search criteria.</p>
+    <p class="text-white">No posts found matching your search criteria.</p>
 
   {% endif %}
 

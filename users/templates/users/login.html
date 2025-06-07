@@ -2,26 +2,26 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} login {% endblock %}
+{% block title %} Login {% endblock %}
 
 {% block content %}
-    <div style="text-transform: lowercase;">
+    <div class="section rounded border border-dark">
         <form method="POST">
-            {% csrf_token %}
+            {% csrf_token %} {# Protects against CSRF attacks #}
             
             <fieldset class="form-group">
-                {{ form|crispy }}
+                {{ form|crispy }} {# Renders the login form with crispy styling #}
             </fieldset>
 
             <div class="form-group">
-                <button class="text-primary" style="cursor: pointer; border: none; background: none; outline: none;" type="submit">LOGIN</button>
+                <button class="btn btn-primary" type="submit">Login</button>
             </div>
         </form>
 
         <div class="border-top">
             <small class="text-muted">
-                need an account?
-                <a class="ml-2" href="{% url 'register' %}">sign up now</a>
+                Need an account?
+                <a class="text-primary" href="{% url 'register' %}">Signup Now</a>
             </small>
         </div>
     </div>

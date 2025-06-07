@@ -2,26 +2,26 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} register {% endblock %}
+{% block title %} Register {% endblock %}
 
 {% block content %}
-    <div style="text-transform: lowercase;">
+    <div class="section rounded border border-dark">
         <form method="POST">
-            {% csrf_token %}
+            {% csrf_token %} {# CSRF protection for the form #}
 
             <fieldset class="form-group">
-                {{ form|crispy }}
+                {{ form|crispy }} {# Render form fields using crispy-forms #}
             </fieldset>
 
             <div class="form-group">
-                <button class="text-primary" style="cursor: pointer; border: none; background: none; outline: none;" type="submit">REGISTER</button>
+                <button class="btn btn-primary" type="submit">Register</button>
             </div>
         </form>
 
         <div class="border-top">
             <small class="text-muted">
-                already have an account?
-                <a class="ml-2" href="{% url 'login' %}">sign in</a>
+                Already have an account?
+                <a class="text-primary" href="{% url 'login' %}">Login</a>
             </small>
         </div>
     </div>
